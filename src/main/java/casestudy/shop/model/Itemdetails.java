@@ -1,4 +1,4 @@
-package model;
+package casestudy.shop.model;
 
 public class Itemdetails {
 }

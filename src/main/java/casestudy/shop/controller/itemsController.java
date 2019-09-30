@@ -1,7 +1,6 @@
-package controller;
+package casestudy.shop.controller;
 
-
-import model.items;
+import casestudy.shop.model.items;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class itemsController {
     }
 
 
-    @PostMapping("/sessign")
+    @PostMapping("/session")
     public String Assignitems(@RequestBody items item1) {
 
         return item1.getName();

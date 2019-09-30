@@ -1,4 +1,4 @@
-package model;
+package casestudy.shop.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Table(name = "items" )
 public class items implements Serializable
 {
-  @Id
+    @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private int ProductId;
     private String name ;

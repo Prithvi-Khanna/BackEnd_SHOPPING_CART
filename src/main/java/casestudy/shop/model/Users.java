@@ -1,4 +1,4 @@
-package model;
+package casestudy.shop.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +9,7 @@ public class Users implements Serializable {
 
     @Id
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email ;
     private String username ;
     private String password ;
