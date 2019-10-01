@@ -8,22 +8,21 @@ public class items implements Serializable
 {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private int ProductId;
+    private Long ProductId;
     private String name ;
-    private String details;
+    private String description;
     private double price;
-    private String image;
+    private String img;
     private String category;
     private String subcategory;
 
     public items(){}
 
-    public items(int productId, String name, String details, double price, String image, String category, String subcategory) {
-        ProductId = productId;
+    public items(String name, String description, double price, String img, String category, String subcategory) {
         this.name = name;
-        this.details = details;
+        this.description = description;
         this.price = price;
-        this.image = image;
+        this.img = img;
         this.category = category;
         this.subcategory = subcategory;
     }
@@ -34,25 +33,19 @@ public class items implements Serializable
     @Embedded
     private Itemdetails itemdetails;
 
-    public int getProductId() {
-        return ProductId;
-    }
-
     public String getName() {
         return name;
     }
 
-    public String getDetails() {
-        return details;
+    public String getDescription() {
+        return description;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public String getImage() {
-        return image;
-    }
+    public String getImg() {return img; }
 
     public String getCategory() {
         return category;
@@ -62,24 +55,18 @@ public class items implements Serializable
         return subcategory;
     }
 
-    public void setProductId(int productId) {
-        ProductId = productId;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
+    public void setDescription(String description) { this.description = description;    }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public void setCategory(String category) {
