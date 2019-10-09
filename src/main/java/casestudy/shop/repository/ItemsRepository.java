@@ -13,4 +13,9 @@ import java.util.List;
 public interface ItemsRepository extends JpaRepository<items,Long>
 {
     List<items> findAllByCategory(String category);
+    List<items> findAllBySubcategory(String subcategory);
+    List<items> findAllByName(String name);
+    //List<items> findAllByPriceBetween(double price1 , double price2);
+    List<items> findAllByCategoryAndPriceBetween(String category  , double price1 , double price2);
+    List<items> findAllByCategoryAndSubcategoryAndPriceBetween(String category ,String subcategory  , double price1 , double price2);
 }

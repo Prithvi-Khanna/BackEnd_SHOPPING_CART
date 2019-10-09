@@ -12,7 +12,7 @@ import java.util.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping( value = "/users" , method = { RequestMethod.GET , RequestMethod.POST})
+@RequestMapping( value = "/users")
 public class UsersController {
 
     @Autowired
@@ -23,24 +23,22 @@ public class UsersController {
         return UsersRepo.findAll();
     }
 
+    @GetMapping(produces = "application/json")
+    @RequestMapping({ "/validateLogin" })
+    public Users validateLogin() {
+        return new Users("User successfully authenticated");
+    }
+
     @GetMapping("/get_user/{username}")
     public List<Users> getUser(@PathVariable( value = "username") String name)
     {
-        if(UsersRepo.findByUsername(name).isEmpty())
-        {
-            List <Users> l1 = new ArrayList<>();
-            l1.add(new Users(null,null,null));
-            return l1;
-        }
-        else
-        {
         return UsersRepo.findByUsername(name);
-
-        }
     }
 
     @PostMapping("/post1")
     public Users createNote(@Valid @RequestBody Users user1) {
+        user1.setRole("User");
+        user1.setActive(1);
         return UsersRepo.save(user1);
     }
 

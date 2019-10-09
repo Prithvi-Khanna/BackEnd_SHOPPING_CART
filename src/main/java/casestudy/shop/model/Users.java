@@ -13,13 +13,35 @@ public class Users implements Serializable {
     private String email ;
     private String username ;
     private String password ;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Users(){}
+
+    public Users(String s){}
 
     public Users(String email, String username, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    @Column( nullable = false , columnDefinition = " int default '1'")
+    private int active;
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 
     @Embedded
