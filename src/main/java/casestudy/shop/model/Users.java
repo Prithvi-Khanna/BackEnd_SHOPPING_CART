@@ -33,6 +33,10 @@ public class Users implements Serializable {
         this.password = password;
     }
 
+    public Long getuserid() {
+        return id;
+    }
+
     @Column( nullable = false , columnDefinition = " int default '1'")
     private int active;
 
