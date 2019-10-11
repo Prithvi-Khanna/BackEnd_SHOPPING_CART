@@ -10,28 +10,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping( value = "/cart")
 public class CartController {
 
-    private CartService cartserv;
-    private CurrentUserService currentserv;
-
     @Autowired
-    public CartController( CartService cartserv , CurrentUserService currentserv  )
-    {
-        this.cartserv = cartserv;
-        this.currentserv = currentserv;
+    CartService cartserv;
+    @Autowired(required =true)
+    CurrentUserService currentserv;
 
-    }
-
-    @RequestMapping( value = "/addproduct/recieve/{ProductId}" , method = RequestMethod.GET)
+    @RequestMapping( value = "/addtocart/recieve/{ProductId}" , method = RequestMethod.GET)
     @ResponseBody
-    public Cart addproduct(@PathVariable Long ProductId , Principal principal)
+    public Cart addtocart(@PathVariable Long ProductId , Principal principal)
     {
-        return cartserv.addproduct( currentserv.getuserid(principal),ProductId );
+        return cartserv.addtocart( currentserv.getuserid(principal),ProductId );
     }
 
     @RequestMapping( value = "/removeproduct/recieve/{ProductId}" , method = RequestMethod.GET)
@@ -41,18 +36,18 @@ public class CartController {
         return cartserv.removeproduct(currentserv.getuserid(principal),ProductId);
     }
 
-    @RequestMapping( value = "/addtocart/recieve/{ProductId" , method = RequestMethod.GET)
+    @RequestMapping( value = "/addproduct/recieve/{ProductId}" , method = RequestMethod.GET)
     @ResponseBody
-    public String addtocart(@PathVariable Long ProductId , Principal principal)
+    public String addproduct(@PathVariable Long ProductId , Principal principal)
     {
-        return cartserv.addtocart(currentserv.getuserid(principal),ProductId);
+        return cartserv.addproduct(currentserv.getuserid(principal),ProductId);
     }
 
     @RequestMapping( value = "/removefromcart/recieve/{ProductId}" , method = RequestMethod.GET)
     @ResponseBody
     public String removefromcart(@PathVariable Long ProductId , Principal principal)
     {
-        return cartserv.removefromcart(currentserv.getuserid(principal),principal);
+        return cartserv.removefromcart(currentserv.getuserid(principal),ProductId);
     }
 
     @RequestMapping( value = "/showcart/recieve" , method = RequestMethod.GET)

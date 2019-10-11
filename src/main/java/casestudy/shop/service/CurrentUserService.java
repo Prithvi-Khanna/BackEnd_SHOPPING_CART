@@ -3,11 +3,12 @@ package casestudy.shop.service;
 import casestudy.shop.model.Users;
 import casestudy.shop.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CurrentUserService {
 
     @Autowired
@@ -26,13 +27,13 @@ public class CurrentUserService {
         return id;
     }
 
-    /*
-    public Long getuserrole(Principal principal)
+
+    public String getuserrole(Principal principal)
     {
-        return UsersRepo.findByUsername(principal.getName()).get().getRole().getRoleid();
+        return UsersRepo.findByUsername(principal.getName()).get().getRole();
     }
 
-    */
+
     public Optional<Users> getuserprofile(Principal principal)
     {
         return UsersRepo.findByUsername(principal.getName());

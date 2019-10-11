@@ -11,33 +11,33 @@ public class Cart {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   @ManyToOne
-    private Optional<items> item;
+    private items item;
   @ManyToOne
-    private Optional<Users> user;
+    private Users user;
   @Column
     private int quantity;
 
     public Cart(){}
 
-    public Cart(Optional<items> item, Optional<Users> user, int quantity) {
+    public Cart(items item,Users user, int quantity) {
         this.item = item;
         this.user = user;
         this.quantity = quantity;
     }
 
-    public Optional<items> getItem() {
+    public items getItem() {
         return item;
     }
 
-    public void setItem(Optional<items> item) {
+    public void setItem(items item) {
         this.item = item;
     }
 
-    public Optional<Users> getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(Optional<Users> user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
@@ -47,5 +47,9 @@ public class Cart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
