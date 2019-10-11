@@ -1,6 +1,7 @@
 package casestudy.shop.service;
 
 import casestudy.shop.model.Cart;
+import casestudy.shop.model.OrderHistory;
 import casestudy.shop.model.Users;
 import casestudy.shop.model.items;
 import casestudy.shop.repository.*;
@@ -20,6 +21,8 @@ public class CartService {
     private UsersRepository usersRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private OrderHistoryRepository orderHistoryRepository;
 
     public Cart addtocart(Long getuserid, Long productId) {
 
@@ -94,7 +97,21 @@ public class CartService {
 
     public double checkout(Long getuserid, Principal principal) {
 
-
+        Optional<Users> user = usersRepository.findById(getuserid);
+        List<Cart> car = cartRepository.findAllByUser(user.get());
+        for( Cart cart : car)
+        {
+            OrderHistory order = new OrderHistory();
+            //order.setOrderId(cart.getId());
+            order.setItem(cart.getItem());
+            double p = cart.getItem().getPrice();
+            order.setQuantity(cart.getQuantity());
+            order.setPrice((cart.getQuantity() * p));
+            order.setUser(cart.getUser());
+            order.setdate1();
+            orderHistoryRepository.save(order);
+        }
+        clearcart(getuserid,principal);
         return 0;
     }
 
