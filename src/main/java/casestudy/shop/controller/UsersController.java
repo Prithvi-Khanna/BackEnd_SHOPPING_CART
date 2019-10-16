@@ -3,9 +3,11 @@ package casestudy.shop.controller;
 import casestudy.shop.model.Users;
 import casestudy.shop.exception1.NotFound;
 import casestudy.shop.repository.UsersRepository;
+import casestudy.shop.service.CurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
@@ -17,6 +19,8 @@ public class UsersController {
 
     @Autowired
     UsersRepository UsersRepo;
+    @Autowired
+    CurrentUserService currentUserService;
 
     @GetMapping("/get1")
     public List<Users> getAllNotes() {
@@ -49,4 +53,22 @@ public class UsersController {
         //To HAndle Error        .orElseThrow(() -> new NotFound("Note", "id", noteId));
     }
 
+    @PutMapping("/put_user")
+    public Users putting(@Valid @RequestBody Users user , Principal principal)
+    {
+        Users user1 = currentUserService.CurrentUser(principal).get();
+        //user1.setUsername(user.getUsername());
+        user1.setEmail(user.getEmail());
+        user1.setGender(user.getGender());
+        user1.setPhone(user.getPhone());
+        //user1.setPassword(user.getPassword());
+        user1.setActive(1);
+        return UsersRepo.save(user1);
+    }
+
+    @GetMapping("/get_role/{username}")
+    public String getrole(@PathVariable( value = "username") String name,Principal principal)
+    {
+        return currentUserService.getuserrole(principal);
+    }
 }

@@ -3,10 +3,12 @@ package casestudy.shop.controller;
 import casestudy.shop.exception1.NotFound;
 import casestudy.shop.model.items;
 import casestudy.shop.repository.ItemsRepository;
+import casestudy.shop.service.CurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+import java.security.Principal;
 import java.util.List;
 @CrossOrigin("*")
 @RestController
@@ -15,6 +17,8 @@ public class itemsController {
 
     @Autowired
     ItemsRepository ItemsRepo;
+    @Autowired
+    CurrentUserService currentUserService;
 
     @GetMapping("/get1")
     public List<items> getAllNotes() {
@@ -53,8 +57,8 @@ public class itemsController {
 
 
     @PostMapping("/post1")
-    public List<items> createNote(@Valid @RequestBody List<items> user1) {
-        return ItemsRepo.saveAll(user1);
+    public items createNote(@Valid @RequestBody items user1) {
+        return ItemsRepo.save(user1);
     }
 
     @GetMapping("/get1/{id}")
@@ -63,5 +67,17 @@ public class itemsController {
                 .orElseThrow(() -> new NotFound("Note", "id", noteId));
     }
 
+    @PutMapping("/put1")
+    public items putting(@Valid @RequestBody items item , Principal principal)
+    {
+        items items1 = ItemsRepo.findById(item.getProductId()).get();
+        items1.setCategory(item.getCategory());
+        items1.setDescription(item.getDescription());
+        items1.setImg(item.getImg());
+        items1.setName(item.getName());
+        items1.setPrice(item.getPrice());
+        items1.setSubcategory(item.getSubcategory());
+        return ItemsRepo.save(items1);
+    }
 
 }

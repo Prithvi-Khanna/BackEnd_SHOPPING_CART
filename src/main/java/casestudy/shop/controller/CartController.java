@@ -2,6 +2,7 @@ package casestudy.shop.controller;
 
 
 import casestudy.shop.model.Cart;
+import casestudy.shop.model.OrderHistory;
 import casestudy.shop.repository.CartRepository;
 import casestudy.shop.service.CartService;
 import casestudy.shop.service.CurrentUserService;
@@ -45,9 +46,16 @@ public class CartController {
 
     @RequestMapping( value = "/removefromcart/recieve/{ProductId}" , method = RequestMethod.GET)
     @ResponseBody
-    public String removefromcart(@PathVariable Long ProductId , Principal principal)
+    public Cart removefromcart(@PathVariable Long ProductId , Principal principal)
     {
         return cartserv.removefromcart(currentserv.getuserid(principal),ProductId);
+    }
+
+    @RequestMapping( value = "/remove1fromcart/recieve/{ProductId}" , method = RequestMethod.GET)
+    @ResponseBody
+    public Cart remove1fromcart(@PathVariable Long ProductId , Principal principal)
+    {
+        return cartserv.remove1fromcart(currentserv.getuserid(principal),ProductId);
     }
 
     @RequestMapping( value = "/showcart/recieve" , method = RequestMethod.GET)
@@ -55,6 +63,13 @@ public class CartController {
     public List<Cart> showcart(Principal principal)
     {
         return cartserv.showcart(currentserv.getuserid(principal),principal);
+    }
+
+    @RequestMapping( value = "/history/recieve" , method = RequestMethod.GET)
+    @ResponseBody
+    public List<OrderHistory> history(Principal principal)
+    {
+        return cartserv.history(currentserv.getuserid(principal),principal);
     }
 
     @RequestMapping( value = "/checkout/recieve" , method = RequestMethod.GET)
@@ -66,7 +81,7 @@ public class CartController {
 
     @RequestMapping( value = "/clearcart/recieve" , method = RequestMethod.GET)
     @ResponseBody
-    public String clearcart(Principal principal)
+    public Cart clearcart(Principal principal)
     {
         return cartserv.clearcart(currentserv.getuserid(principal),principal);
     }

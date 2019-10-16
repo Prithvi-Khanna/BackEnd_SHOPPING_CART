@@ -94,4 +94,11 @@ public class items implements Serializable
         this.itemdetails = itemdetails;
     }
 
+    public Long getProductId() {
+        return ProductId;
+    }
+
+    public void setProductId(Long productId) {
+        ProductId = productId;
+    }
 }

@@ -24,8 +24,7 @@ public class OrderHistory {
     @Column( nullable = false)
     private LocalDate date1;
 
-    public LocalDate getdate1() {
-        date1 = LocalDate.now();
+    public LocalDate getDate1() {
         return date1;
     }
 
