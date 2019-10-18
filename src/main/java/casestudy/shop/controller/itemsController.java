@@ -37,16 +37,20 @@ public class itemsController {
         return ItemsRepo.findAllByCategoryAndPriceBetween(cate,price1, price2);
     }
 
-    @GetMapping("/sub/{category}/{subcategory}/{first}/{last}")
-    public List<items> getPrice1(@PathVariable ( value = "subcategory") String cate ,@PathVariable (value = "subcategory") String sub , @PathVariable ( value = "first" ) double price1 , @PathVariable (value = "last") double price2)
+    @GetMapping("/search/{description}")
+    public List<items> search(@PathVariable (value = "description") String description)
     {
-        return ItemsRepo.findAllByCategoryAndSubcategoryAndPriceBetween(cate,sub,price1,price2);
+        return ItemsRepo.findAllByDescriptionContaining(description);
     }
 
-    @GetMapping("/{subcategory}")
-    public List<items> getItem1(@PathVariable( value = "subcategory") String cate)
+    @GetMapping("/sub/{category}/{subcategory}/{first}/{last}")
+   public List<items> getPrice1(@PathVariable ( value = "category") String cate ,@PathVariable (value = "subcategory") String sub , @PathVariable ( value = "first" ) double price1 , @PathVariable (value = "last") double price2) {
+        return ItemsRepo.findAllByCategoryAndSubcategoryAndPriceBetween(cate, sub, price1, price2);
+    }
+    @GetMapping("/{category}/{subcategory}")
+    public List<items> getItem1(@PathVariable ( value = "category") String cate ,@PathVariable( value = "subcategory") String sub)
     {
-        return ItemsRepo.findAllBySubcategory(cate);
+        return ItemsRepo.findAllByCategoryAndSubcategory(cate,sub);
     }
 
     @GetMapping("/get_name/{name}")
@@ -78,6 +82,13 @@ public class itemsController {
         items1.setPrice(item.getPrice());
         items1.setSubcategory(item.getSubcategory());
         return ItemsRepo.save(items1);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public List<items> del(@PathVariable (value = "id") Long Id)
+    {
+        ItemsRepo.deleteById(Id);
+        return ItemsRepo.findAll();
     }
 
 }
